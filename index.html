@@ -153,12 +153,12 @@
         function send_result() {
             let tg = window.Telegram.WebApp;
 
-            let inputs = document.querySelector("form :input");
+            let inputs = document.querySelector("input");
 
             let values = {};
-            inputs.each(function() {
-                if (document.querySelector(this).value != "") {
-                    values[document.querySelector(this).name] = document.querySelector(this).value;
+            inputs.forEach(function(item) {
+                if (item.value != "") {
+                    values[item.name] = item.value;
                 }
             });
 
