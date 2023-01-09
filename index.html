@@ -9,12 +9,6 @@
     <title>Калькулятор ЕГЭ</title>
 </head>
 <body>
-
-    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <script src="http://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
-
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    
     <main class="main_block">
 
         <form action="">
@@ -153,6 +147,11 @@
         </div>
     </footer>
 
+    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="http://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
     <script>
         function send_result() {
             let tg = window.Telegram.WebApp;
@@ -177,10 +176,7 @@
                 $(this).val("");
                 resulting();
             });
-        }
-    </script>
-
-    <script>
+        };
 
         function resulting() {
             var $inputs = $("form :input");
@@ -199,8 +195,8 @@
             
             });
 
-            $(".summary").text("Суммарное количество баллов: " + String(sum))
-        }
+            $(".summary").text("Суммарное количество баллов: " + String(sum));
+        };
 
         $("input").focusout(function(){
             let value = $(this).val();
@@ -224,7 +220,6 @@
                 }
             }
         });
-
     </script>
 
 </body>
