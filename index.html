@@ -167,10 +167,10 @@
         };
 
         function reset() {
-            let inputs = document.querySelector("form :input");
+            let inputs = document.querySelector("input");
 
-            inputs.each(function() {
-                document.querySelector(this).value;
+            inputs.forEach(function(item) {
+                item.value = "";
                 resulting();
             });
         };
