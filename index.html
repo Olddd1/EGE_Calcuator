@@ -153,7 +153,7 @@
         function send_result() {
             let tg = window.Telegram.WebApp;
 
-            let inputs = document.querySelector("input");
+            let inputs = document.querySelectorAll("input");
 
             let values = {};
             inputs.forEach(function(item) {
@@ -163,14 +163,15 @@
             });
 
             let result = JSON.stringify(values);
+
             tg.sendData(result);
         };
 
         function reset() {
-            let inputs = document.querySelector("input");
+            let inputs = document.querySelector("form :input");
 
-            inputs.forEach(function(item) {
-                item.value = "";
+            inputs.each(function() {
+                document.querySelector(this).value;
                 resulting();
             });
         };
