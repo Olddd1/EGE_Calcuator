@@ -14,81 +14,7 @@
     <script src="http://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
 
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-
-    <script>
-        function send_result() {
-            let tg = window.Telegram.WebApp;
-
-            let $inputs = $("form :input");
-
-            let values = {};
-            $inputs.each(function() {
-                if ($(this).val() != "") {
-                    values[$(this).name] = $(this).val();
-                }
-            });
-
-            let result = JSON.stringify(values);
-            tg.sendData(result);
-        };
-
-        function reset() {
-            let $inputs = $("form :input");
-
-            $inputs.each(function() {
-                $(this).val("");
-                resulting();
-            });
-        }
-    </script>
-
-    <script>
-
-        function resulting() {
-            var $inputs = $("form :input");
-
-            var values = [];
-            $inputs.each(function() {
-                if ($(this).val() != "") {
-                    values.push($(this).val());
-                }
-            });
-            var sum = 0
-
-            values.forEach(function(num) {
-                
-                sum += parseFloat(num) || 0;
-            
-            });
-
-            $(".summary").text("Суммарное количество баллов: " + String(sum))
-        }
-
-        $("input").focusout(function(){
-            let value = $(this).val();
-            
-            if (/^[1-9][0-9]?$|^100$/.test(value)) {
-                let $inputs = $("form :input");
-
-                resulting();
-
-            } else {
-                if (/^-\d+$/.test(value) || value == "0") {
-                    $(this).val("1");
-
-                    resulting();
-                } else if (/^\d+$/.test(value)) {
-                    $(this).val("100");
-
-                    resulting();
-                } else {
-                    $(this).val("");
-                }
-            }
-        });
-
-    </script>
-
+    
     <main class="main_block">
 
         <form action="">
@@ -212,6 +138,7 @@
         </form>
 
     </main>
+
     <footer>
         <div class="footer_info">
             <p></p>
@@ -225,6 +152,80 @@
             <p><a class="footer_a" href="https://freelance.habr.com/freelancers/anton206060">Habr</a></p>
         </div>
     </footer>
+
+    <script>
+        function send_result() {
+            let tg = window.Telegram.WebApp;
+
+            let $inputs = $("form :input");
+
+            let values = {};
+            $inputs.each(function() {
+                if ($(this).val() != "") {
+                    values[$(this).name] = $(this).val();
+                }
+            });
+
+            let result = JSON.stringify(values);
+            tg.sendData(result);
+        };
+
+        function reset() {
+            let $inputs = $("form :input");
+
+            $inputs.each(function() {
+                $(this).val("");
+                resulting();
+            });
+        }
+    </script>
+
+    <script>
+
+        function resulting() {
+            var $inputs = $("form :input");
+
+            var values = [];
+            $inputs.each(function() {
+                if ($(this).val() != "") {
+                    values.push($(this).val());
+                }
+            });
+            var sum = 0
+
+            values.forEach(function(num) {
+                
+                sum += parseFloat(num) || 0;
+            
+            });
+
+            $(".summary").text("Суммарное количество баллов: " + String(sum))
+        }
+
+        $("input").focusout(function(){
+            let value = $(this).val();
+            
+            if (/^[1-9][0-9]?$|^100$/.test(value)) {
+                let $inputs = $("form :input");
+
+                resulting();
+
+            } else {
+                if (/^-\d+$/.test(value) || value == "0") {
+                    $(this).val("1");
+
+                    resulting();
+                } else if (/^\d+$/.test(value)) {
+                    $(this).val("100");
+
+                    resulting();
+                } else {
+                    $(this).val("");
+                }
+            }
+        });
+
+    </script>
 
 </body>
 </html>
