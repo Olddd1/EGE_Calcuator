@@ -147,21 +147,18 @@
         </div>
     </footer>
 
-    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
-    <script src="http://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
-
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
     <script>
         function send_result() {
             let tg = window.Telegram.WebApp;
 
-            let $inputs = $("form :input");
+            let inputs = document.querySelector("form :input");
 
             let values = {};
-            $inputs.each(function() {
-                if ($(this).val() != "") {
-                    values[$(this).name] = $(this).val();
+            inputs.each(function() {
+                if (document.querySelector(this).value != "") {
+                    values[document.querySelector(this).name] = document.querySelector(this).value;
                 }
             });
 
@@ -170,21 +167,21 @@
         };
 
         function reset() {
-            let $inputs = $("form :input");
+            let inputs = document.querySelector("form :input");
 
-            $inputs.each(function() {
-                $(this).val("");
+            inputs.each(function() {
+                document.querySelector(this).value;
                 resulting();
             });
         };
 
         function resulting() {
-            var $inputs = $("form :input");
+            var inputs = document.querySelectorAll("input");
 
             var values = [];
-            $inputs.each(function() {
-                if ($(this).val() != "") {
-                    values.push($(this).val());
+            inputs.forEach(function(item) {
+                if (item.value != "") {
+                    values.push(item.value);
                 }
             });
             var sum = 0
@@ -195,31 +192,34 @@
             
             });
 
-            $(".summary").text("Суммарное количество баллов: " + String(sum));
+            document.querySelector(".summary").textContent = "Суммарное количество баллов: " + String(sum);
         };
 
-        $("input").focusout(function(){
-            let value = $(this).val();
-            
+        function focus_out(element){
+
+            value = element.value;
             if (/^[1-9][0-9]?$|^100$/.test(value)) {
-                let $inputs = $("form :input");
-
                 resulting();
-
+                
             } else {
-                if (/^-\d+$/.test(value) || value == "0") {
-                    $(this).val("1");
+                if (/^-d+$/.test(value) || value == "0") {
+                    element.value = "1";
+                    
 
                     resulting();
-                } else if (/^\d+$/.test(value)) {
-                    $(this).val("100");
+                } else if (/^d+$/.test(value)) {
+                    element.value = "100";
 
                     resulting();
                 } else {
-                    $(this).val("");
+                    element.value = "";
                 }
             }
-        });
+        };
+
+        form = document.querySelectorAll("input")
+        
+        form.forEach(function(item) {item.addEventListener("focusout", () => focus_out(item))});
     </script>
 
 </body>
