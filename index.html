@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <title>Калькулятор ЕГЭ</title>
+</head>
+<body>
+
+    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="http://rawgit.com/notifyjs/notifyjs/master/dist/notify.js"></script>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <script>
+        function send_result() {
+            let tg = window.Telegram.WebApp;
+
+            let $inputs = $("form :input");
+
+            let values = {};
+            $inputs.each(function() {
+                if ($(this).val() != "") {
+                    values[$(this).name] = $(this).val();
+                }
+            });
+
+            let result = JSON.stringify(values);
+            tg.sendData(result);
+        };
+
+        function reset() {
+            let $inputs = $("form :input");
+
+            $inputs.each(function() {
+                $(this).val("");
+                resulting();
+            });
+        }
+    </script>
+
+    <script>
+
+        function resulting() {
+            var $inputs = $("form :input");
+
+            var values = [];
+            $inputs.each(function() {
+                if ($(this).val() != "") {
+                    values.push($(this).val());
+                }
+            });
+            var sum = 0
+
+            values.forEach(function(num) {
+                
+                sum += parseFloat(num) || 0;
+            
+            });
+
+            $(".summary").text("Суммарное количество баллов: " + String(sum))
+        }
+
+        $("input").focusout(function(){
+            let value = $(this).val();
+            
+            if (/^[1-9][0-9]?$|^100$/.test(value)) {
+                let $inputs = $("form :input");
+
+                resulting();
+
+            } else {
+                if (/^-\d+$/.test(value) || value == "0") {
+                    $(this).val("1");
+
+                    resulting();
+                } else if (/^\d+$/.test(value)) {
+                    $(this).val("100");
+
+                    resulting();
+                } else {
+                    $(this).val("");
+                }
+            }
+        });
+
+    </script>
+
+    <main class="main_block">
+
+        <form action="">
+            <div class="form_item">
+
+                <div class="form_item__text">
+                    <img src="images/subjects/russian.png" alt="" class="form_icon">
+            
+                    <h3 class="form_item__name">Русский язык</h3>
+                </div>
+
+                <input type="text" name="russian" class="russian_input">
+            </div>
+            <div class="form_item">
+
+                <div class="form_item__text">
+                    <img src="images/subjects/math.png" alt="" class="form_icon">
+            
+                    <h3 class="form_item__name">Математика</h3>
+                </div>
+            
+                <input type="text" name="math" class="math_input">
+            </div>
+            <div class="form_item">
+
+                <div class="form_item__text">
+                    <img src="images/subjects/physics.png" alt="" class="form_icon">
+            
+                    <h3 class="form_item__name">Физика</h3>
+                </div>
+
+                <input type="text" name="physic" class="physic_input">
+            </div>
+            <div class="form_item">
+
+                <div class="form_item__text">
+                    <img src="images/subjects/chemistry.png" alt="" class="form_icon">
+            
+                    <h3 class="form_item__name">Химия</h3>
+                </div>
+
+                <input type="text" name="chemistry" class="chemistry_input">
+            </div>
+            <div class="form_item">
+
+                <div class="form_item__text">
+                    <img src="images/subjects/biology.png" alt="" class="form_icon">
+            
+                    <h3 class="form_item__name">Биология</h3>
+                </div>
+        
+                <input type="text" name="biology" class="biology_input">
+            </div>
+            <div class="form_item">
+
+                <div class="form_item__text">
+                    <img src="images/subjects/geography.png" alt="" class="form_icon">
+            
+                    <h3 class="form_item__name">География</h3>
+                </div>
+
+                <input type="text" name="geography" class="geography_input">
+            </div>
+            <div class="form_item">
+
+                <div class="form_item__text">
+                    <img src="images/subjects/history.png" alt="" class="form_icon">
+            
+                    <h3 class="form_item__name">История</h3>
+                </div>
+
+                <input type="text" name="history" class="history_input">
+            </div>
+            <div class="form_item">
+
+                <div class="form_item__text">
+                    <img src="images/subjects/it.png" alt="" class="form_icon">
+                
+                    <h3 class="form_item__name">Информатика</h3>
+                </div>
+
+                <input type="text" name="it" class="it_input">
+            </div>
+            <div class="form_item">
+                <div class="form_item__text">
+                    <img src="images/subjects/langs.png" alt="" class="form_icon">
+            
+                    <h3 class="form_item__name">Иностранный язык</h3>
+                </div>
+            
+                <input type="text" name="langs" class="langs_input">
+            </div>
+            <div class="form_item">
+
+                <div class="form_item__text">
+                    <img src="images/subjects/literature.png" alt="" class="form_icon">
+            
+                    <h3 class="form_item__name">Литература</h3>
+                </div>
+
+                <input type="text" name="literature" class="literature_input">
+            </div>
+            <div class="form_item">
+
+                <div class="form_item__text">
+                    <img src="images/subjects/law.png" alt="" class="form_icon">
+            
+                    <h3 class="form_item__name">Обществознание</h3>
+                </div>
+            
+                <input type="text" name="law" class="law_input">
+            </div>
+            <div class="form_info">
+                <div class="form_info__text"><h2 class="summary">Суммарное количество баллов:</h2></div>
+                <div class="buttons">
+                    <button class="reset" onclick="reset()">Сбросить</button>
+                    <button class="resulting" onclick="send_result()">Подобрать</button>  
+                </div>
+                
+            </div>
+        </form>
+
+    </main>
+    <footer>
+        <div class="footer_info">
+            <p></p>
+            <p></p>
+            <p></p>
+        </div>
+        <div class="footer_info">
+            <p>Сайт создал Чернышёв Антон</p>
+            <p>Контакты:</p>
+            <p><a class="footer_a" href="https://t.me/Olddd1">Telegram</a></p>
+            <p><a class="footer_a" href="https://freelance.habr.com/freelancers/anton206060">Habr</a></p>
+        </div>
+    </footer>
+
+</body>
+</html>
